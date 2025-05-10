@@ -33,4 +33,36 @@ while not at_goal():
         turn_left()
 ```
 
+## Caesar Ciper 
 
+- Encryption and Decryption of words in a letter by shift position. Use Modulus function to make sure that the encrypted position stays in the range 0 to 25. 
+Example : Letter is z and shift_position is 3. 
+```python
+    letter_index=25
+    shift_position=3
+    final_position=25+3
+    # final position is 28
+    final_position %= 25 
+    # final position is 3
+    encrypted_letter=alphabets[final_position]
+    # encrypted_letter is c  
+```    
+
+## Leap Year 
+
+- Years divisible by 4 are leap years.
+- However, years divisible by 100 are not leap years, unless
+- They are also divisible by 400.
+
+```python
+if year % 4 == 0:
+        if year % 100 == 0:
+            if year % 400 == 0:
+                return True
+            else:
+                return False
+        else:
+            return True
+    else:
+        return False
+```
