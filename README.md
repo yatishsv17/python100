@@ -1,82 +1,13 @@
 # 100 Days of Python
 
-### Inheritence
-
-
-Inheritance allows us to define a class that inherits all the methods and properties from another class.
-
-```python
-class Animal:
-    def __init(self):
-      self.num_eyes = 2
-    
-    def breathe(self):
-      print("Inhale, Exhale.")
-      
-class Fish(Animal):
-    def __init__(self):
-      super().__init__()
-     
-    def breathe(self):
-      super().breathe()
-      print("Doing this underwater.")
-        
-    def swim(self):
-      print("moving in water")
-
- ```
-
-
-# Files, Directories and Paths
-
-
-```python
-file=open("my_file.txt")
-contents = file.read()
-print(contents)
-close("my_file.txt")
- ```
-- Auto close using below snippet:-
-```python
-with open("my_file.txt") as file:
-  contents = file.read()
-  print(contents)
- ```
-
-- Return all lines in the file, as a list where each line is an item in the list object:-
-
-```python
-file = open("demofile.txt", "r")
-print(file.readlines())
- ```
-
-
-- Open in write mode (Deletes all contents and write data from beginning), It creates new file in the name if the file doesnt exist
-
-```python
-with open("my_file.txt",mode="w") as file:
-  file.write("New Text.")
-  contents = file.read()
-  print(contents)
- ```
-- Open in Append mode (Add data to contents)
-
-```python
-with open("my_file.txt",mode="a") as file:
-  file.write("\nNew Text.")
-  contents = file.read()
-  print(contents)
- ```
-
-
-### FilePaths
-
-
-- *Add information here*
-
-
 ### Working with csv data (Pandas Dataframes)
 
+- Table is equavalent to Dataframe object (Equivalent to dictionary in Python)
+- Column / row is equivalent to Series object (Equivalent to list in Python)
+- ```dataframe_name[column_name]``` to access a column
+- ```dataframe_name[dataframe_name[column_name]==cell_value]``` to access the row containing the cell value
+- ```dataframe_name[dataframe_name.column_name == cell_value]``` to access the row containing the cell value
+- Interate through rows (series) of a data frame: ```for (index,row) in dataframe_name.iterrows():```
 
 ```python
 import pandas

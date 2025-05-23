@@ -115,7 +115,8 @@ list=list1+list2
 ```
 - Answer: "Result : ['Line', 'that neeeds to be split for every ', '(comma)']"
 
-- List Comprehension : ```new_list=[**new_item** for **item** in **list** if **condition**]```
+- List Comprehension : To create a new list from an existing list
+- - ```new_list=[**new_item** for **item** in **list** if **condition**]```
 
 ### Dictionaries 
 
@@ -185,7 +186,7 @@ while (i<10):
 
         function1(x=10,z=3)
         ```
-    - Function with **Unlimited positional arguments** . Arguments are stored in tuple
+    - Function with **Unlimited positional arguments** . Arguments are stored in **tuple**
 
        ```python
         def add(*args):
@@ -195,7 +196,7 @@ while (i<10):
 
         function1(x=10,z=3)
         ```
-    - Function with **Unlimited keyword arguments** . Arguments are stored in dictionary
+    - Function with **Unlimited keyword arguments** . Arguments are stored in **dictionary**
 
        ```python
         def add(**kwargs):
@@ -205,6 +206,15 @@ while (i<10):
 
         function1(x=10,z=3)
         ```
+
+        ```python
+        def func(a, *args, **kw): 
+            print(a, args, kw)
+ 
+        func(4, 7, 3, 0, x=10, y=64)
+
+        # Output is 4, (7,3,0) {'x':10,'y':64}
+        ```ś
     - Function with hints and Arrows
 
        ```python
@@ -227,17 +237,17 @@ while (i<10):
     txt = "For only {price:.2f} dollars!"
     print(txt.format(price = 49))
     ```
-- **High Order Function**: Function which takes other functions as parameters
+- **Higher Order Function**: Function which takes other functions as parameters
 
    ```python
-    def func1(n1,n2):
+    def add(n1,n2):
         return n1*n2
 
-    def func2(n1,n2):
+    def substract(n1,n2):
         return n1+n2
     
-    #func3 is High Order Function
-    def func3(n1,n2,func)
+    #calculator is High Order Function, dont include () while passing lower order function as argument inside higher order function
+    def calculator(n1,n2,add)
         return func(n1,n2)
     ```
 

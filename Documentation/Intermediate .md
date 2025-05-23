@@ -56,5 +56,69 @@
         print(user1.username,user1.followers,user2.username,user2.followers)
     ```
 
-- Instances are the objects created from same class, but have different attribute values(color,shape,speed etc) 
+- Instances are the objects created from same class, but have different states (attribute values(color,shape,speed etc)  and methods)
+
+### Inheritence
+
+
+Inheritance allows us to define a class that inherits all the methods and properties from another class.
+
+```python
+class Animal:
+    def __init(self):
+      self.num_eyes = 2
+    
+    def breathe(self):
+      print("Inhale, Exhale.")
+      
+class Fish(Animal):
+    def __init__(self):
+      super().__init__()
+     
+    def breathe(self):
+      super().breathe()
+      print("Doing this underwater.")
+        
+    def swim(self):
+      print("moving in water")
+
+ ```
+
+
+###  Files, Directories and Paths
+
+- Auto close using below snippet:-
+```python
+  with open("my_file.txt") as file:
+    contents = file.read()
+    print(contents)
+    # Return all lines in the file as a list where each line is an item in the list object
+    print(file.readlines())
+ ```
+
+- Open in write mode (Deletes all contents and write data from beginning), It creates new file in the name if the file doesnt exist
+
+```python
+with open("my_file.txt",mode="w") as file:
+  file.write("New Text.")
+  contents = file.read()
+  print(contents)
+ ```
+- Open in Append mode (Add data to contents)
+
+```python
+with open("my_file.txt",mode="a") as file:
+  file.write("\nNew Text.")
+  contents = file.read()
+  print(contents)
+ ```
+
+- Filepaths
+- - Absolute
+- - - Access from any location using path from root directory. ```/home/user/Documents/my_file.txt```
+- - Relative
+- - - Access from current working directory. ```my_file.txt``` or ```./my_file.txt```
+- - - Access a directory below current working directory. ```./directory_name/my_file.txt```
+- - - Access a parent directory above current working directory. ```../my_file.txt```
+- - - Access a  directory inside parent directory viz above current working directory. ```../directory_name/my_file.txt```
 

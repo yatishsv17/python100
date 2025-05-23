@@ -66,3 +66,34 @@ if year % 4 == 0:
     else:
         return False
 ```
+
+## Pomodoro
+
+```python
+
+    work_sec = WORK_MIN * 60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
+    
+    if reps % 8 == 0:
+        count_down(long_break_sec)
+    elif reps % 2 == 0:
+        count_down(short_break_sec)
+    else:
+        count_down(work_sec)
+```
+
+## Turtle Class
+
+- Dashed Line : Use ```penup()``` and ```pendown```
+- To draw multiple shapes: exterior angle of a polygon = ```360/number_of_sides```
+- To draw spirograph : change/add turtle head by ```360/no_of_gaps``` degrees, and then keep drawing circle ```360/no_of_gaps``` times
+
+
+
+## Math Module
+
+```python
+import math
+print(math.floor(11/3)) # gives 3 i.e largest whole number less than or equal to number 
+```
