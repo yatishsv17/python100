@@ -208,7 +208,6 @@ with open("data.json", mode="w") as jsonfile:
 
  ```
 
-
 ### Error Handling and Catching Exceptions
 - try : executes a code block which might cause an exception
 - except: executes a code block when a specific exception is raised by TRY block
@@ -260,45 +259,9 @@ if human_height > 3:
     raise ValueError("Human height cannot be above 3 meters")
 
  ```
-### Sending Emails
-```python
-#Simple Mail Transfer Protocol
-import smtplib
-
-my_email = "yatishsv17@gmail.com"
-password="my_google_app_password"
-
-with smtplib.SMTP("smtp.gmail.com") as connection:
-    #TLS : Transport layer security. make connection secure
-    connection.starttls()
-    connection.login(user=my_email, password=password)
-    connection.sendmail(
-        from_addr=my_email,
-        to_addrs="yatishsv@yahoo.com",
-        msg="Subject:Hello\n\n "
-            "This is the body of email !!!")
-
- ```
-
-### Sending SMS
-```python
-from twilio.rest import Client
-
-account_sid = "account_sid"
-auth_token = "auth_token"
-client = Client(account_sid, auth_token)
-message = client.messages.create(
-  body="Hello from Twilio",
-  from_="+16812216287",
-  to="+917026824562"
-)
-print(message.sid,message.status)
-
- ```
-
 ### Using environment variables
 
-- n python Terminal : export TWILIO_ACCOUNT_SID = "account_sid" and TWILIO_AUTH_TOKEN = "auth_token"
+- In python Terminal : export TWILIO_ACCOUNT_SID = "account_sid" and TWILIO_AUTH_TOKEN = "auth_token"
 - Using saved environment variables in python file
 ```python
 import os
@@ -306,3 +269,59 @@ TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 ```
 - To run python file from terminal/cloud ```export TWILIO_ACCOUNT_SID = "account_sid" ; TWILIO_AUTH_TOKEN = "auth_token"; python3 main.py```
+
+### Getting data using APIs
+
+- APIs : Application Programming Interface
+- Status Codes:
+- - 1XX : Informational / Hold on
+- - 2XX : Success
+- - 3XX : Redirection / Go Away
+- - 4XX : Client Error / You Screwed Up
+- - 5XX : Server Error / Server Down / I(server) screwed Up
+    **API Method** : method for the new Request object: GET, OPTIONS, HEAD, POST, PUT, PATCH, or DELETE. (POST is for adding new data, PUT is for updating existing data)
+- Using API Keys
+
+```python
+OWM_Endpoint = "https://api.openweathermap.org/data/2.5/onecall"
+api_key = "my_api_key"
+weather_params = {
+    "lat": "YOUR LATITUDE",
+    "lon": "YOUR LONGITUDE",
+    "appid": api_key,
+    "exclude": "current,minutely,daily"
+}
+response = requests.get(OWM_Endpoint, params=weather_params)
+#Raise an exception if 200 is not returned
+response.raise_for_status()
+weather_data = response.json()
+print(weather_data)
+```
+
+- Post to an API endpoint using Header Authentication : Edit Google Sheet spreadsheet via Sheety API
+
+```python
+
+SHEETY_URL="https://api.sheety.co/fb08e2b31067628f811b6d467af12ff2/workoutTracking/workouts"
+
+sheety_header={
+'Content-Type':'application/json',
+'Authorization':"Auth Token"
+}
+
+
+workout_data={
+   "workout": {
+	    "date": "07/01/2023",
+	    "time": "15:00:00",
+       "exercise": "Running",
+       "duration": "5.5",
+       "calories": "32.5"
+ }
+}
+
+sheety_response = requests.post(url=SHEETY_URL, json=workout_data, headers=sheety_header)
+sheety_response.raise_for_status()
+sheety_data = sheety_response.json()
+sheety_data2 = sheety_response.text
+```

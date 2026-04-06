@@ -34,7 +34,7 @@
 
 ### Conditional Operators
 
-- `=` is assignment, ``==` checks equality in if/elif/else or case or loops checks
+- `=` is assignment, `==` checks equality in if/elif/else or case or loops checks
 - Logical operators : `and`,`or`and `not`
 - Always finalise flow charts before starting to code for conditional statements.
 - Use IF_ELIF_ELSE for OR condition, Multiple IFs for AND condition
@@ -209,7 +209,7 @@ while (i<10):
 
     ```python
      def add(**kwargs):
-         for key,value in kargs.items():
+         for key,value in kwargs.items():
              do operation on n
          return result
 
@@ -223,7 +223,6 @@ while (i<10):
     func(4, 7, 3, 0, x=10, y=64)
 
     # Output is 4, (7,3,0) {'x':10,'y':64}
-    ```ś
     ````
 
   - Function with hints and Arrows
@@ -258,7 +257,7 @@ while (i<10):
        return n1+n2
 
    #calculator is High Order Function, dont include () while passing lower order function as argument inside higher order function
-   def calculator(n1,n2,add)
+   def calculator(n1,n2,func):
        return func(n1,n2)
   ```
 

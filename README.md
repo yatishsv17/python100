@@ -178,62 +178,6 @@ pyperclip.copy(email)
 pyperclip.paste()
 ```
 
-### Getting data using APIs
-
-- APIs : Application Programming Interface
-- Status Codes:
-- - 1XX : Informational / Hold on
-- - 2XX : Success
-- - 3XX : Redirection / Go Away
-- - 4XX : Client Error / You Screwed Up
-- - 5XX : Server Error / Server Down / I(server) screwed Up
-    **API Method** : method for the new Request object: GET, OPTIONS, HEAD, POST, PUT, PATCH, or DELETE. (POST is for adding new data, PUT is for updating existing data)
-- Using API Keys
-
-```python
-OWM_Endpoint = "https://api.openweathermap.org/data/2.5/onecall"
-api_key = "my_api_key"
-weather_params = {
-    "lat": "YOUR LATITUDE",
-    "lon": "YOUR LONGITUDE",
-    "appid": api_key,
-    "exclude": "current,minutely,daily"
-}
-response = requests.get(OWM_Endpoint, params=weather_params)
-#Raise an exception if 200 is not returned
-response.raise_for_status()
-weather_data = response.json()
-print(weather_data)
-```
-
-- Post to an API endpoint using Header Authentication : Edit Google Sheet spreadsheet via Sheety API
-
-```python
-
-SHEETY_URL="https://api.sheety.co/fb08e2b31067628f811b6d467af12ff2/workoutTracking/workouts"
-
-sheety_header={
-'Content-Type':'application/json',
-'Authorization':"Auth Token"
-}
-
-
-workout_data={
-   "workout": {
-	    "date": "07/01/2023",
-	    "time": "15:00:00",
-       "exercise": "Running",
-       "duration": "5.5",
-       "calories": "32.5"
- }
-}
-
-sheety_response = requests.post(url=SHEETY_URL, json=workout_data, headers=sheety_header)
-sheety_response.raise_for_status()
-sheety_data = sheety_response.json()
-sheety_data2 = sheety_response.text
-```
-
 ### Web Foundation
 
 ### #Code Files
@@ -247,184 +191,177 @@ sheety_data2 = sheety_response.text
 - Non-Void Elements (Forward Slash at beginning)
   - Headings
   - Paragraphs
-- oid Elements (Forward Slash at End)
+- Void Elements (Forward Slash at End)
   - Horizontal Rule
   - Break
+- Heading Element: `< h1 > Hello World < /h1 >`
+  - Tags are the entities enclosed inside Angle brackets : `< h1 >`
+  - Element are entities with start and end tags : `< h1 > Hello World < /h1 >`
+  - Maximum number of headings : H6
+- Paragraph Element: `< p > paragraph < /p > `
+- Horizontal Rule Element: `< hr/ >`
+- Line Break Element: `< br/ >`
+- Ordered Lists : Numbered points
+  ```html
+  <ol>
+    <li>List item 1</li>
+    <li>List item 2</li>
+    <li>List item 3</li>
+    <li>
+      <ol>
+        <li>Mini List item 1</li>
+        <li>Mini List item 2</li>
+        <li>Mini List item 3</li>
+      </ol>
+    </li>
+  </ol>
+  ```
+- Unordered Lists : Bullet points `<li> list item </li>`
 
-### ##Heading Element
+  ```html
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  ```
 
-< h1 > Hello World < /h1 >
+- Anchor Elements : Attribures- Specified inside opening tags
+  - **href** : specifies the link
+  - **draggable** : Specifies whether the element is draggable
+  - **target** : Specifies where to open the link
+  - **`<ol start>`** : Specifies the start value/umber of the list
 
-Tags are the entities enclosed inside Angle brackets : < h1 >
-Element are entitues enclosed inside open and closed tags : < h1 > Hello World < /h1 >
-Maximum number of headings : H6
-
-### ##Paragraph Element
-
-- < p > paragraph < /p >
-  Generate dummy text/words/paragraphs etc : https://www.lipsum.com/
-
-### ##Horizontal Rule Element
-
-- < hr/ >
-
-### ##Break Element
-
-- < br/ >
-
-Comapre Text/Image/PDF/Excel/Folders etc : https://www.diffchecker.com/
-
-### ##Ordered Lists
-
-```
-<ol>
-    <li> </li>
-    <li> </li>
-    <li> </li>
-</ol>
-
-```
-
-### ##Unordered Lists : Bullet points
-
-```
-<ul>
-    <li> </li>
-    <li> </li>
-    <li> </li>
-</ul>
-
-```
-
-### ##Anchor Elements : Attribures- Specified inside opening tags
-
-```
-<anchor_tag attribute=value 2nd_attribute=2nd_value>Element body</anchor_tag>
-<a href="https://ww.google.com">This is a link </a>
-
+```html
+<anchor_tag attribute="value" 2nd_attribute="2nd_value"
+  >Element body</anchor_tag
+>
+<a href="https://www.google.com">This is a link </a>
 ```
 
-### ##Images (Void element: Slash at end)
+- Images (Void element: Slash at end), Doesnt have closing tag
 
+```html
+<img src="image_URL.com" alt="alternative text description" />
 ```
-<img src="image_URL.com"/ alt="alternative text description">
 
-```
-
-**alt** helps visually impaired to understand by using voice text readers
+- **alt** helps visually impaired to understand by using voice text readers
 
 ### #HTML Boilerplate
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>HTML 5 Boilerplate</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-	<script src="index.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
 ```
 
 ### CSS : Cascading Style Sheets
 
-### #Adding CSS to HTML
+- Adding CSS to HTML
+  - Inline : Same line as HTML Element : Target Single element
+    ```html
+    <tag style="css" />
+    <h1 style="background:blue"></h1>
+    ```
+  - Internal : Targets single webpage
+    ```css
+    html_element_selector {
+      color: red;
+    }
+    ```
+    HTML element Selector can be any HTML element : h1,h2,h3,p etc,
+    ```html
+    <style>
+      css
+    </style>
+    <head>
+      <style>
+        html_selector {
+          color: red;
+        }
+      </style>
+    </head>
+    ```
+  - External : Target Multipage Website
+    - CSS file
+    ```css
+    hml {
+      background: green;
+    }
+    ```
+    - Linking html to CSS file
+    ```html
+    <html>
+      <head>
+        <link rel="stylesheet" href="style.css" />
+      </head>
+    </html>
+    ```
 
-1. Inline : Same line as HTML Element : Target Single element
+### CSS Selectors
 
-   ```
-   <tag style="css"/>
+- Heirarchy / Priority : Universal Selectors > attributes and values selectors > ID selectors > Class selectors > HTML Element Selectors
 
-   <h1 style="background:blue"></h1>
-   ```
+  - HTML Element selectors
+  ```css
 
-1. Internal : Targets single webpage
+  p{
+    color:red
+  }
 
-   ```
-   html_element_selector{
-           background:red;
-       }
-   ```
+  <p>1. The element selector targets elements based on their HTML tag name.</p>
+  ```
+  - Class selectors
+  ```css
+  .class-name{
+    font-size: 20px
+  }
 
-   HTML element Selector can be any HTML element : h1,h2,h3,p etc,
-
-   ```
-   <style>css</style>
-
-
-   <head>
-   <style>
-       html{
-           background:red;
-       }
-   </style>
-   </head>
-   ```
-
-1. External : Target Multipage Website
-   ```
-   <html>
-   <head>
-   <link rel="stylesheet" href="style.css"/>
-   </head>
-   </html>
-   ```
-
-### #CSS Selectors
-
-Heirarchy / Priority
-
-Universal Selectors > attributes and values selectors > ID selectors > Class selectors > HTML Element Selectors
-
-```
-
-p{
-  color:red
-}
-
-<p >1. The element selector targets elements based on their HTML tag name.</p>
-
-
-.class-name{
-  font-size: 20px
-}
-
-<ol>
-<li class="class-name" value="2">Class selectors target elements based on the value of the class attribute.</li>
-</ol>
-
-
-#id-name{
-  color: green;
-}
-
-<ol>
-<li class="note" id="id-name" value="3">ID selectors target elements based on the value of the id
-      attribute. ID's are unique to a webpage, classes aren't.</li>
-</ol>
-
-
-
-li[value="4"]{
-  color: blue;
-}
-
-<ol>
-<li class="note" value="4">Attribute selectors target elements based on their attributes and values.</li>
-</ol>
-
-
-*{
-  text-align: center
-}
-
-
-<ol>
-<li class="note" value="5">The universal selector targets all elements.</li>
+  <ol>
+  <li class="class-name" value="2">Class selectors target elements based on the value of the class attribute.</li>
   </ol>
-```
+  ```
+  - ID selectors
+  ```css
+  #id-name{
+    color: green;
+  }
+
+  <ol>
+  <li class="note" id="id-name" value="3">ID selectors target elements based on the value of the id
+        attribute. ID's are unique to a webpage, classes aren't.</li>
+  </ol>
+  ```
+
+  - Attribute (href,draggable,src,alt etc) selectors
+
+  ```css
+  li[value="4"]{
+    color: blue;
+  }
+
+  <ol>
+  <li class="note" value="4">Attribute selectors target elements based on their attributes and values.</li>
+  </ol>
+  ```
+  - Universal selector
+  ```css
+  *{
+    text-align: center
+  }
+
+
+  <ol>
+  <li class="note" value="5">The universal selector targets all elements.</li>
+    </ol>
+  ```
