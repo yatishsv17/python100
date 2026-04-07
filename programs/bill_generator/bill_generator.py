@@ -93,7 +93,7 @@ def generate_single_bill(bill_id, start_date, end_date, products):
     
     for product in selected_products:
         # Random quantity for each product (between 1 and 5)
-        quantity = random.randint(1, 5)
+        quantity = random.randint(1, 3)
         product_total = product['price'] * quantity
         
         bill_products.append({
