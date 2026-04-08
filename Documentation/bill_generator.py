@@ -13,14 +13,11 @@ def get_user_inputs():
 def load_products(products_csv):
     """Load products from CSV file"""
     products = []
-    print(f"Attempting to load products from: {products_csv}")
+    print(f"Loading products from: {products_csv}")
     try:
         with open(products_csv, 'r', encoding='utf-8-sig') as file:
             reader = csv.DictReader(file)
-            print(f"CSV reader fieldnames: {reader.fieldnames}")
-            row_count = 0
             for row in reader:
-                row_count += 1
                 # Handle both BOM and non-BOM column names
                 product_name_key = None
                 product_price_key = None
@@ -32,7 +29,6 @@ def load_products(products_csv):
                         product_price_key = key
                 
                 if not product_name_key or not product_price_key:
-                    print(f"Skipping row {row_count}: Missing columns")
                     continue
                 
                 product_name = row[product_name_key].strip()
@@ -45,16 +41,8 @@ def load_products(products_csv):
                             'name': product_name,
                             'price': float(product_price)
                         })
-                        print(f"Loaded product: {product_name} - ${product_price}")
                     except ValueError:
-                        # Skip rows with invalid price values
-                        print(f"Skipping row {row_count}: Invalid price '{product_price}'")
                         continue
-                else:
-                    print(f"Skipping row {row_count}: Empty name or price")
-            
-            print(f"Total rows processed: {row_count}")
-            print(f"Total products loaded: {len(products)}")
     except FileNotFoundError:
         print(f"Error: Products file '{products_csv}' not found.")
         return []
@@ -62,6 +50,7 @@ def load_products(products_csv):
         print(f"Error reading products file: {e}")
         return []
     
+    print(f"Loaded {len(products)} products")
     return products
 
 def generate_single_bill(bill_id, products, target_amount):
@@ -107,7 +96,7 @@ def generate_single_bill(bill_id, products, target_amount):
     }
 
 def generate_bills(number_of_bills, total_bill_amount, products_csv):
-    """Generate multiple bills with variety while matching target amount"""
+    """Generate multiple bills that add up to target amount"""
     products = load_products(products_csv)
     
     if not products:
@@ -117,18 +106,12 @@ def generate_bills(number_of_bills, total_bill_amount, products_csv):
     bills = []
     target_per_bill = total_bill_amount / number_of_bills
     
-    # Generate bills with variety around the target
     for i in range(1, number_of_bills + 1):
-        # Create variation: ±40% around target, but clamp between $50 and $1500
-        variation_factor = random.uniform(0.6, 1.4)  # ±40% variation
-        bill_target = target_per_bill * variation_factor
-        bill_target = max(50, min(1500, bill_target))  # Clamp between $50-$1500
-        
-        bill = generate_single_bill(i, products, bill_target)
+        bill = generate_single_bill(i, products, target_per_bill)
         bills.append(bill)
         print(f"Generated Bill {i}: ${bill['total_amount']}")
     
-    # Check totals and adjust if needed
+    # Check totals
     total_generated = sum(bill['total_amount'] for bill in bills)
     tolerance_percent = ((total_generated - total_bill_amount) / total_bill_amount) * 100
     
@@ -169,8 +152,8 @@ def export_bills_to_csv(bills, output_filename="generated_bills.csv"):
                 ])
     
     print(f"\nBills exported to '{output_filename}'")
-    print(f"Total bills generated: {len(bills)}")
     total_generated = sum(bill['total_amount'] for bill in bills)
+    print(f"Total bills generated: {len(bills)}")
     print(f"Total amount generated: ${total_generated:.2f}")
 
 def main():
