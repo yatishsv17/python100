@@ -77,7 +77,7 @@ def generate_single_bill(bill_id, products, target_amount):
         product = random.choice(available_products)
         
         # Calculate maximum quantity we can afford
-        max_quantity = min(5, int(remaining_amount / product['price']))
+        max_quantity = min(4, int(remaining_amount / product['price']))
         
         if max_quantity == 0:
             # Can't afford this product, remove it from available products
