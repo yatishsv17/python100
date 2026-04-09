@@ -36,17 +36,18 @@ def modify_generated_csv(csv_file_path):
         if 'Bill_Total' in row:
             del row['Bill_Total']
     
-    # Step 2: Extract product data and keep Bill_ID and Date intact
+    # Step 2: Extract product data and keep Bill_ID, Date, and Name intact
     print("\n=== Step 2: Extracting product data for global shuffling ===")
     
-    # Separate static columns (Bill_ID, Date) from shufflable columns (Product_Name, Quantity, Unit_Price, Total_Price)
+    # Separate static columns (Bill_ID, Date, Name) from shufflable columns (Product_Name, Quantity, Unit_Price, Total_Price)
     static_columns = []
     product_columns = []
     
     for row in rows:
         static_data = {
             'Bill_ID': row['Bill_ID'],
-            'Date': row['Date']
+            'Date': row['Date'],
+            'Name': row.get('Name', '')  # Handle case where Name might not exist
         }
         product_data = {
             'Product_Name': row['Product_Name'],
@@ -71,6 +72,7 @@ def modify_generated_csv(csv_file_path):
         combined_row = {
             'Bill_ID': static_columns[i]['Bill_ID'],
             'Date': static_columns[i]['Date'],
+            'Name': static_columns[i]['Name'],
             'Product_Name': product_columns[i]['Product_Name'],
             'Quantity': product_columns[i]['Quantity'],
             'Unit_Price': product_columns[i]['Unit_Price'],
@@ -124,7 +126,7 @@ def modify_generated_csv(csv_file_path):
     print("\n=== Sample of Modified Data ===")
     print("First 10 rows of modified CSV:")
     for i, row in enumerate(shuffled_rows[:10]):
-        print(f"  Row {i+1}: Bill_ID={row['Bill_ID']}, Date={row['Date']}, "
+        print(f"  Row {i+1}: Bill_ID={row['Bill_ID']}, Date={row['Date']}, Name={row['Name']}, "
               f"Product={row['Product_Name'][:20]}..., Total=${row['Bill_Total']}")
     
     return True
@@ -152,7 +154,7 @@ def main():
             print("\n=== Operation Completed Successfully ===")
             print("The CSV file has been modified:")
             print("1. Bill_Total column removed")
-            print("2. Rows shuffled (Bill_ID and Date kept together)")
+            print("2. Rows shuffled (Bill_ID, Date, and Name kept together)")
             print("3. Bill_Total column recalculated and added back")
             print("4. Original file backed up")
         else:

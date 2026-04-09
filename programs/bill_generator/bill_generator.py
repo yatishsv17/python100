@@ -25,6 +25,40 @@ def get_user_inputs():
     
     return start_date, end_date, fancy_bills, fancy_amount, cloths_bills, cloths_amount
 
+def load_names():
+    """Load names from names.csv file"""
+    names = []
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    names_csv_path = os.path.join(script_dir, "names.csv")
+    
+    print(f"Attempting to load names from: {names_csv_path}")
+    try:
+        with open(names_csv_path, 'r', encoding='utf-8-sig') as file:
+            reader = csv.DictReader(file)
+            print(f"CSV reader fieldnames: {reader.fieldnames}")
+            row_count = 0
+            for row in reader:
+                row_count += 1
+                name = row.get('Name', '').strip()
+                
+                # Skip empty names
+                if name:
+                    names.append(name)
+                    print(f"Loaded name: {name}")
+                else:
+                    print(f"Skipping row {row_count}: Empty name")
+            
+            print(f"Total rows processed: {row_count}")
+            print(f"Total names loaded: {len(names)}")
+    except FileNotFoundError:
+        print(f"Error: Names file '{names_csv_path}' not found.")
+        return []
+    except Exception as e:
+        print(f"Error reading names file: {e}")
+        return []
+    
+    return names
+
 def load_products(products_csv):
     """Load products from CSV file"""
     products = []
@@ -126,7 +160,13 @@ def generate_single_bill(bill_id, products, target_amount):
     }
 
 def generate_random_dates(start_date, end_date, num_dates):
-    """Generate random dates between start and end date"""
+    """Generate random dates between start and end date with associated names"""
+    # Load names
+    names = load_names()
+    if not names:
+        print("No names loaded. Using empty names.")
+        names = [""] * num_dates
+    
     # Convert dates to Unix timestamps (floats)
     start_ts = start_date.timestamp()
     end_ts = end_date.timestamp()
@@ -143,10 +183,23 @@ def generate_random_dates(start_date, end_date, num_dates):
     # Strip time part and keep only dates
     random_dates = [dt.date() for dt in random_datetimes]
     
-    # Create serial number to date mapping
+    # Generate random names (allowing duplicates if needed)
+    random_names = []
+    for i in range(num_dates):
+        if names:
+            # Randomly select a name (with replacement to allow duplicates)
+            name = random.choice(names)
+        else:
+            name = ""
+        random_names.append(name)
+    
+    # Create serial number to date and name mapping
     date_mapping = {}
-    for i, date in enumerate(random_dates, 1):
-        date_mapping[i] = date.strftime("%Y-%m-%d")
+    for i, (date, name) in enumerate(zip(random_dates, random_names), 1):
+        date_mapping[i] = {
+            'date': date.strftime("%Y-%m-%d"),
+            'name': name
+        }
     
     return date_mapping
 
@@ -199,15 +252,19 @@ def export_bills_to_csv(bills, output_filename="generated_bills.csv", date_mappi
         writer = csv.writer(file)
         
         # Write header
-        writer.writerow(['Bill_ID', 'Date', 'Product_Name', 'Quantity', 'Unit_Price', 'Total_Price', 'Bill_Total'])
+        writer.writerow(['Bill_ID', 'Date', 'Name', 'Product_Name', 'Quantity', 'Unit_Price', 'Total_Price', 'Bill_Total'])
         
         # Write bill data
         for bill in bills:
-            bill_date = date_mapping.get(bill['bill_id'], '') if date_mapping else ''
+            bill_info = date_mapping.get(bill['bill_id'], {'date': '', 'name': ''}) if date_mapping else {'date': '', 'name': ''}
+            bill_date = bill_info.get('date', '')
+            bill_name = bill_info.get('name', '')
+            
             for product in bill['products']:
                 writer.writerow([
                     bill['bill_id'],
                     bill_date,
+                    bill_name,
                     product['product_name'],
                     product['quantity'],
                     product['unit_price'],
@@ -227,11 +284,15 @@ def append_bills_to_csv(bills, output_filename="generated_bills.csv", date_mappi
         
         # Write bill data (no header for append)
         for bill in bills:
-            bill_date = date_mapping.get(bill['bill_id'], '') if date_mapping else ''
+            bill_info = date_mapping.get(bill['bill_id'], {'date': '', 'name': ''}) if date_mapping else {'date': '', 'name': ''}
+            bill_date = bill_info.get('date', '')
+            bill_name = bill_info.get('name', '')
+            
             for product in bill['products']:
                 writer.writerow([
                     bill['bill_id'],
                     bill_date,
+                    bill_name,
                     product['product_name'],
                     product['quantity'],
                     product['unit_price'],
@@ -284,10 +345,12 @@ def main():
             export_bills_to_csv(fancy_bills_list, output_csv_path, date_mapping)
             all_bills.extend(fancy_bills_list)
             
-            # Show sample of first fancy bill with date
+            # Show sample of first fancy bill with date and name
             first_bill_id = fancy_bills_list[0]['bill_id']
-            first_bill_date = date_mapping.get(first_bill_id, 'N/A')
-            print(f"\n=== Sample Fancy Bill (Bill ID: {first_bill_id}, Date: {first_bill_date}) ===")
+            first_bill_info = date_mapping.get(first_bill_id, {'date': 'N/A', 'name': 'N/A'})
+            first_bill_date = first_bill_info.get('date', 'N/A')
+            first_bill_name = first_bill_info.get('name', 'N/A')
+            print(f"\n=== Sample Fancy Bill (Bill ID: {first_bill_id}, Date: {first_bill_date}, Name: {first_bill_name}) ===")
             print(f"Products:")
             for product in fancy_bills_list[0]['products']:
                 print(f"  - {product['product_name']}: {product['quantity']} x ${product['unit_price']} = ${product['total_price']}")
@@ -304,10 +367,12 @@ def main():
             append_bills_to_csv(cloths_bills_list, output_csv_path, date_mapping)
             all_bills.extend(cloths_bills_list)
             
-            # Show sample of first cloth bill with date
+            # Show sample of first cloth bill with date and name
             first_cloth_bill_id = cloths_bills_list[0]['bill_id']
-            first_cloth_date = date_mapping.get(first_cloth_bill_id, 'N/A')
-            print(f"\n=== Sample Cloth Bill (Bill ID: {first_cloth_bill_id}, Date: {first_cloth_date}) ===")
+            first_cloth_info = date_mapping.get(first_cloth_bill_id, {'date': 'N/A', 'name': 'N/A'})
+            first_cloth_date = first_cloth_info.get('date', 'N/A')
+            first_cloth_name = first_cloth_info.get('name', 'N/A')
+            print(f"\n=== Sample Cloth Bill (Bill ID: {first_cloth_bill_id}, Date: {first_cloth_date}, Name: {first_cloth_name}) ===")
             print(f"Products:")
             for product in cloths_bills_list[0]['products']:
                 print(f"  - {product['product_name']}: {product['quantity']} x ${product['unit_price']} = ${product['total_price']}")
