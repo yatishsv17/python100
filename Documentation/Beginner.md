@@ -242,7 +242,7 @@ while (i<10):
 - **docstring** : `""" Write multiline docstrings inside triple double-quotes """` . Docstrings says what function intends to do and return
 - ``lower()`converts string to lowercase,`upper()` converts to Uppercase`, `title()` converts to Titlecase`, `count()``` counts occurrence of a character in a string
 
-- String format() : Following returns 49.00 dollars
+- String format() : Following returns "For only 49.00 dollars". `.2f` is a format specifier used to format a floating-point number associated with an int variable into a string with exactly two decimal places
   ```python
    txt = "For only {price:.2f} dollars!"
    print(txt.format(price = 49))
@@ -256,7 +256,7 @@ while (i<10):
    def substract(n1,n2):
        return n1+n2
 
-   #calculator is High Order Function, dont include () while passing lower order function as argument inside higher order function
+   #calculator is High Order Function, dont include function brackets "()" while passing lower order function as argument inside higher order function
    def calculator(n1,n2,func):
        return func(n1,n2)
   ```
