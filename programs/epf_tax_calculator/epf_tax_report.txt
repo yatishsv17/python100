@@ -1,0 +1,69 @@
+======================================================================================================================
+  EPF TAX REPORT  |  Assessment Year: 2026-27  |  Finance Act 2021 / CBDT Notification 95/2021
+  Threshold: Rs 2,50,000/FY  |  Slab: 30%  |  TDS @10% (Sec 194A)  |  Cess @4%  |  Interest: EPFO monthly method
+======================================================================================================================
+
+  SECTION 1 — YEAR-WISE CONTRIBUTION SPLIT
+  ----------------------------------------------------------------------------------------------------------------------
+  FY           EPF%       Total Contrib     Non-Taxable (≤ Rs 2.5L)     Taxable (> Rs 2.5L)
+  ----------------------------------------------------------------------------------------------------------------------
+  2023-24     8.25%  Rs     607,390.00  Rs             250,000.00  Rs     357,390.00
+  2024-25     8.25%  Rs     367,756.00  Rs             250,000.00  Rs     117,756.00
+  2025-26     8.25%  Rs     372,291.00  Rs             250,000.00  Rs     122,291.00
+  ----------------------------------------------------------------------------------------------------------------------
+  TOTAL              Rs   1,347,437.00  Rs             750,000.00  Rs     597,437.00
+
+  SECTION 2 — YEAR-WISE INTEREST & RUNNING ACCOUNT BALANCES
+  ----------------------------------------------------------------------------------------------------------------------
+  (Interest on the taxable account's opening balance is ALSO taxable — this is the compound effect)
+  FY                 NT Interest    Taxable Interest    NT Account Balance  Taxable Account Balance
+  ----------------------------------------------------------------------------------------------------------------------
+  2023-24     Rs      15,503.92  Rs      11,425.71  Rs       265,503.92  Rs         368,815.71
+  2024-25     Rs      37,546.44  Rs      34,181.19  Rs       553,050.37  Rs         520,752.90
+  2025-26     Rs      55,935.71  Rs      44,441.88  Rs       858,986.08  Rs         687,485.78
+  ----------------------------------------------------------------------------------------------------------------------
+  TOTAL       Rs     108,986.08  Rs      90,048.78
+
+  SECTION 3 — CUMULATIVE TAXABLE INTEREST TILL ASSESSMENT YEAR (compound growth)
+  ----------------------------------------------------------------------------------------------------------------------
+  (Each year's taxable balance compounds: prior year interest earns interest in subsequent years)
+  FY            NT Int (This FY)   Tax Int (This FY)     Cum NT Interest  Cum Taxable Interest
+  ----------------------------------------------------------------------------------------------------------------------
+  2023-24     Rs      15,503.92  Rs      11,425.71  Rs      15,503.92  Rs        11,425.71
+  2024-25     Rs      37,546.44  Rs      34,181.19  Rs      53,050.37  Rs        45,606.90
+  2025-26     Rs      55,935.71  Rs      44,441.88  Rs     108,986.08  Rs        90,048.78
+  ----------------------------------------------------------------------------------------------------------------------
+  TOTAL       Rs     108,986.08  Rs      90,048.78  Rs     108,986.08  Rs        90,048.78
+
+  SECTION 4 — FINAL EPF ACCOUNT BALANCES (at end of last FY in data)
+  ----------------------------------------------------------------------------------------------------------------------
+  Non-Taxable Account  — principal + tax-exempt interest:    Rs       858,986.08
+  Taxable Account      — principal + taxable interest:        Rs       687,485.78
+  Compound Growth — Non-Taxable (= total NT interest):        Rs       108,986.08
+  Compound Growth — Taxable     (= total taxable interest):   Rs        90,048.78
+
+  SECTION 5 — TAX COMPUTATION FOR AY 2026-27
+  ----------------------------------------------------------------------------------------------------------------------
+  Total Taxable EPF Interest  (add to 'Income from Other Sources' in ITR):  Rs        90,048.78
+
+  Income Tax @ 30%  :                                                         Rs        27,014.63
+  Health & Education Cess @ 4% on income tax :                                Rs         1,080.59
+  Gross Tax Liability  (income tax + cess) :                                  Rs        28,095.22
+  Less: TDS already deducted by EPFO @ 10% (Form 26AS / AIS) :               Rs         9,004.88
+  ----------------------------------------------------------------------------------------------------------------------
+  *** NET TAX PAYABLE for AY 2026-27  :                                          Rs        19,090.34 ***
+======================================================================================================================
+
+  IMPORTANT NOTES:
+  1. Finance Act 2021 rule applies from FY 2021-22. All EPF accumulations before
+     01-Apr-2021 remain fully exempt under Sec 10(11) / 10(12) — add as initial
+     balance in code if you have a pre-2021-22 EPF corpus.
+  2. TDS @10% (Sec 194A) is deducted by EPFO when annual taxable interest > Rs 5,000.
+     If PAN is not linked to your UAN, EPFO deducts TDS @20% instead.
+  3. Report total taxable EPF interest under 'Income from Other Sources' in your ITR.
+     Claim the TDS amount (Form 26AS / AIS) as an advance tax / TDS credit.
+  4. Surcharge (10% / 15% / 25% / 37%) may apply on top, based on your total income.
+  5. Employer contributions > Rs 7.5L / year are taxed separately as perquisite
+     (Sec 17(2)(vii)) — this calculator covers only the employee's side.
+  6. FUTURE YEARS: just append the new FY's monthly rows to contributions.csv.
+     The script will auto-detect the new assessment year and recalculate everything.

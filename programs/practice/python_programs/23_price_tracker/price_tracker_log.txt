@@ -1,0 +1,11 @@
+[2026-05-27 11:23:05] Price tracker started.
+[2026-05-27 11:23:05] Product: https://appbrewery.github.io/instant_pot/
+[2026-05-27 11:23:05] Target:  $100.00
+[2026-05-27 11:23:05] Fetching page (attempt 1/3)...
+[2026-05-27 11:23:08] OK: HTTP 200, 1279861 chars
+[2026-05-27 11:23:08] Found price element with selector: {'class_': 'a-price-whole'}
+[2026-05-27 11:23:08] Extracted price: $99.00
+[2026-05-27 11:23:08] Price $99.00 is at/below target $100.00
+[2026-05-27 11:23:08] Email credentials not configured. Skipping notification.
+[2026-05-27 11:23:08] Price check complete.
+

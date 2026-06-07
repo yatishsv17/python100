@@ -14,7 +14,7 @@
     - `while not right_is_clear():`
     - `while front_is_clear():`
   - `while not at_goal():`
-    - `while front_is_clear():`
+    - `while front_is_clear()  :`
 
 ## Reborg's World Escaping the maze
 
@@ -90,6 +90,16 @@ if year % 4 == 0:
 - Dashed Line : Use `penup()` and `pendown`
 - To draw multiple shapes: exterior angle of a polygon = `360/number_of_sides`
 - To draw spirograph : change/add turtle head by `360/no_of_gaps` degrees, and then keep drawing circle `360/no_of_gaps` times
+- `screen = turtle.Screen()` - creates a screen object . Screen methods are
+  - `screen.exitonclick()` - closes the screen when clicked
+  - `screen.setup(width, height)` - sets the screen size
+  - `screen.title("Title")` - sets the screen title
+  - `screen.bgcolor("color")` - sets the screen background color
+  - `screen.bye()` - closes the screen
+  - `screen.listen()` - starts listening for events. Usually used before `screen.onkey()`
+  - `screen.onkey(fun, key)` - calls function `fun` when key is pressed. Example: `screen.onkey(fun=move_forward, key="space")`
+  - `self.screen.tracer(0)` - turns off the screen animation. Usually used before `self.screen.update()`
+
 
 ## Math Module
 

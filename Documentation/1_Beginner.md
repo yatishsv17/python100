@@ -1,28 +1,14 @@
-# Day 1 to 14: Beginner
-
-### String manipulation
-
-- New line : `\n`
-- String concatination : `"string1"+"string2"`
-- For Multi line string, use docstring `'''<multi-line-string>'''`
-
-### Input Function and Variables
-
-- Save input to a variable : `name = input("What is your name ?")`
-- Length of a string : `len("string")`
+# Python 100 - Beginner
 
 ### DataTypes and String Manipulators
 
-- DataTypes : `type()` , `int(),float(),str(),boolean()` are used to change datatype
 - PEMDAS: Parentheses, Exponents, Multiplication and Division (from left to right), Addition and Subtraction (from left to right)
 - `6/3` : gives float output : Implicit type casting returns float even though result is whole number, Division always gives float output
-- Flow division returning integer : `8//3` : gives quotient which is integer
-- Mod Function : `8%3` : gives reminder -`round()` function is used to round off to required decimal numbers.
-- Exponent : `5**2` : answer 25
-- `a=a+1` is equal to `a += 1`
-- f-string : `print(f"Score is {score_var}")`
-- `type()` gives datatype, `int(),float(),str()` used to change datatype
-- `len()` gives character length of a string
+- f-string : `print(f"Score is {score_var}")`. instead of concatenating strings with variables, use f-string for better readability. Example : `"first_name"+" "+ "last_name"` can be written as `f"{first_name} {last_name}"`
+- `.format()` method for string formatting.  Fills in the {placeholders} with actual values
+  - `name = "The {} {}".format("Mumbai", "Tiger")`
+  - `name = "The {city} {pet}".format(city="Mumbai", pet="Tiger")`
+
 - Maths
   - 3+2 Add
   - 4-1 Subtract
@@ -30,28 +16,35 @@
   - 5/2 Divide
   - 5\*\*2 Exponent / Power
   - 5%2 Mod : Gives reminder
-  - 5//2 Floor Division : returns the largest possible integer result, 10 // 3 would result in 3
+  - 5//2 Floor Division : gives quotient which is integer
 
-### Conditional Operators
+### Enumerations (enum)
 
-- `=` is assignment, `==` checks equality in if/elif/else or case or loops checks
-- Logical operators : `and`,`or`and `not`
-- Always finalise flow charts before starting to code for conditional statements.
-- Use IF_ELIF_ELSE for OR condition, Multiple IFs for AND condition
-- `import random`, Python uses Mersenne Twister pseudorandom number generator (PRNG) for randomization
-  - [Khan Academy on Mersenne Twister ](https://www.khanacademy.org/computing/computer-science/cryptography/crypt/v/random-vs-pseudorandom-number-generators)
+- Enum : A way to create a group of named, fixed constants. Instead of using confusing numbers like 1, 2, 3 scattered throughout your code, you give them meaningful names.Use enums when you have a fixed set of related value like days of week, colors, etc.
+
+```python
+from enum import Enum
+
+class Color(Enum):
+    RED   = 1
+    GREEN = 2
+    BLUE  = 3.
+
+print(Color.RED)        # Color.RED
+print(Color.RED.name)   # 'RED'
+print(Color.RED.value)  # 1
+```
+- Loop through all members with `for member in Color:`
+- No __init__, no arguments passed from outside. The values are written directly inside the class body. Because an Enum is NOT meant to create new objects dynamically. It represents a fixed, closed set of constants that should never change.
 
 ### Lists
 
-- [Python Datastructures](https://docs.python.org/3/tutorial/datastructures.html#)
-- Lists to store information of related data like countries, states ordered by criteria like alphabetical, population etc.
 - `list1.append("Value_to_be_Appended")` : Append adds one more element to existing list
 - `list1.extend(["Value1,Value2,Value3]")` : Extend appends a new list to existing list
-- [Python Datastructures](https://docs.python.org/3/tutorial/datastructures.html#)
 - Loop through list
   `for value in list1:`
 - Loop through each letter of word
-  `for letter in chose_word:`
+  `for letter in chosen_word:`
 - Loop through each integer till a number
   `for number in range(1,101):`
 - Loop through position of letters of a word
@@ -59,8 +52,8 @@
 - Nesting list:
   `l1=[[l2],[l3]]`
   `l1[index1][index2]`
-- Passing the loop for specific condition
-- Splitting
+
+- Splitting 
 
 ```python
 txt = "Line, that neeeds to be split for every , (comma)"
@@ -162,13 +155,14 @@ list=list1+list2
 
 ### Loops
 
-```python
-i=0
-while (i<10):
-    i+=1
-    pass
+- `continue` keyword is a loop control statement used to skip the remaining code in the current iteration of a for or while loop. Instead of exiting the loop entirely like the `break` statement, `continue` forces the program to jump immediately to the next iteration
 
-```
+#### While Loop Use Cases
+
+- When you don't know how many times the loop needs to run
+- You can just break the loop when a specific condition is not met
+- When you need to wait for a condition to be met. Example: waiting for the Right user input like rock, paper, scissors. if the input is not valid, keep asking until it is valid
+- When you're processing data until a certain condition is reached
 
 ### Functions :
 
@@ -271,8 +265,6 @@ while (i<10):
 
 - Module : A file containing Python code, definitions of functions, statements, or classes used for executing specific functionalities
 
-  - Increase the upper limit of `random.random()` from 1 to x by multiplying by x
-
 - Import module from python standard libraries
 
   ```python
@@ -280,14 +272,6 @@ while (i<10):
    from module_name import Class/Function
    from module_name import *
    import module_name as t
-  ```
-
-- Import other modules : pypi.com
-
-  ```python
-   # Install Package
-   pip install package_name
-   import module_name
   ```
 
 - datetime module
@@ -299,4 +283,26 @@ while (i<10):
   now = dt.datetime.now()
   print(now.day,now.month,now.year)
   print(now.strftime("%Y%m%d"))
+  ```
+
+- logging module
+
+  - DEBUG → INFO → WARNING → ERROR → CRITICAL
+
+  ```python
+
+  import logging
+
+  logging.basicConfig(
+    level    = logging.DEBUG,                            # minimum level to capture
+    format   = '%(asctime)s - %(levelname)s - %(message)s',  # message format
+    filename = 'app.log',                                # log to file (optional)
+    filemode = 'a',                                      # 'a' = append, 'w' = overwrite
+    encoding = 'utf-8'                                   # file encoding
+  )
+
+  logging.info("This is an info message")
+  logging.warning("This is a warning message")
+  logging.error("This is an error message")
+  logging.critical("This is a critical message")
   ```

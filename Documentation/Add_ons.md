@@ -2,6 +2,17 @@
 
 - [Create You own ASCII Art](http://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20) . ASCII ART should be inside 3 single quotes opening and close inside print()
 - [OpenTriviaDB](https://opentdb.com/) : Database of MCQ's and Quiz Questions
+- `import string` : used in password generation
+  - - string.ascii_letters : returns a string with all uppercase and lowercase letters
+  - - string.digits : returns a string with all digits from 0 to 9 (0123456789)
+  - - string.punctuation : returns a string with all punctuation characters
+- random.shuffle() : shuffles the elements of a list
+- Set difference operation returns a new set containing elements that exist in the first set but not in the specified set(s)
+```python
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print(a - b)  # Output: {1, 2}
+```
 
 ## Sending Emails
 

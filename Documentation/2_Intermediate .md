@@ -15,7 +15,7 @@
 - Creating a class: ```Class ClassName:``` Class Name should be in PascalCase
 - Use ```pass``` to create empty class
 - Constructor is part of Class which helps in initialising with starting values
-    - ```def __init__(self)``` : This function is called everytime object is created. Attributes that mandatorily needs to be passed will be parameters of init function, default or optional attributes can be defined inside init, though not passed as parameters.
+    - ```def __init__(self)``` : Called automatically when you create a new object. Its job is to set up the object's initial state — giving it its starting attributes/values
     - New attributes can also be added directly to the objects, just like adding extras to your new car which came out of a blueprint 
 
    ```python
@@ -58,10 +58,69 @@
 
 - Instances are the objects created from same class, but have different states (attribute values(color,shape,speed etc)  and methods)
 
+### Decorators
+
+- A decorator is a function that wraps another function to add extra behavior — without changing the original function's code.
+
+```python
+# STEP 1: Define the decorator (a function that takes a function)
+def my_decorator(func):
+    def wrapper():
+        print("⏱ Before the function runs")   # added behavior
+        func()                                  # call original function
+        print("⏱ After the function runs")    # added behavior
+    return wrapper
+
+# STEP 2: Apply it with @
+@my_decorator
+def say_hello():
+    print("Hello!")
+
+# STEP 3: Call it
+say_hello()
+```
+- Summary of Common Decorators
+    - `@staticmethod` : Method without self/cls
+    - `@classmethod` : Method that gets cls instead of self
+    - `@dataclass` : Auto-generate `__init__`, `__repr__`, etc.
+    - `@property` : Access a method like an attribute
+    - `@timer (custom)` : Measure execution time
+    - `@require_login (custom)` : Authorization check
+
+#### Static method decorator
+- A static method is a regular function that lives inside a class for organizational purposes, but doesn't need anything from the class itself — no self, no cls. Simply put: "I belong to this class logically, but I don't need any of its data."
+- Use it for utility/helper functions that:
+  - Logically belong with a class
+  - Don't need to access instance data (self) or class data (cls)
+  - Examples: input validation, data formatting, simple calculations
+  - Regular methods need to know which student is asking (they use self)
+  - Static methods are like the classroom clock - any student can look at it, but the clock doesn't need to know who's looking
+
+```python
+class TemperatureConverter:
+    @staticmethod
+    def celsius_to_fahrenheit(c):
+        return (c * 9/5) + 32
+
+    @staticmethod
+    def fahrenheit_to_celsius(f):
+        return (f - 32) * 5/9
+
+# Use directly — no object needed:
+print(TemperatureConverter.celsius_to_fahrenheit(100))  # 212.0
+
+```
+
+### Python Dunder Methods
+- "Dunder" stands for "Double UNDERscore" — these are special methods surrounded by double underscores (__method__) that let you customize how your class behaves with Python's built-in features.
+- `__init__` : Constructor
+- `__repr__` : String representation for debugging, without this, printing an object will show something like `<__main__.Person object at 0x...>`
+- `__str__` : String representation for end users, without this, printing an object will show something like `<__main__.Person object at 0x...>`
+- `__eq__` : Equality comparison. `__eq__` defines what happens when you use `==` between two objects. It lets you control what "equal" means for your objects. without this, `==` checks if they are the exact same object in memory (identity), not if they have the same values
+
 ### Inheritence
 
-
-Inheritance allows us to define a class that inherits all the methods and properties from another class.
+- Inheritance allows us to define a class that inherits all the methods and properties from another class.
 
 ```python
 class Animal:
@@ -236,7 +295,7 @@ except  FileNotFoundError:
     file.write("Some text")
 
 except KeyError as error_message: 
-    print(f"Key {error_message}does not exist")
+    print(f"Key {error_message} does not exist")
 
 """
 ELSE executes a code block when an exception is not raised by TRY block
